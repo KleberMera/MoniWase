@@ -4,18 +4,21 @@ import { HeaderComponent } from './header/header.component';
 import { LogoComponent } from './logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputComponent } from './input/input.component';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    LogoComponent
+    LogoComponent,
+    InputComponent
 
   ],
   exports: [
     HeaderComponent,
-    LogoComponent
+    LogoComponent,
+    InputComponent
 
   ],
   imports: [
