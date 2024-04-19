@@ -1,20 +1,25 @@
 <app-header title="LOGIN"></app-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
+    <div class="d-flex-center" >
+        <form [formGroup]="form">
+            <app-input autocomplete="email" icon="mail-outline" [control]="form.controls.email" type="email"
+                label="Correo"></app-input>
 
-    <form [formGroup="form"]>
-        <app-input
-        autocomplete="email"
-        icon="mail-outline"
-        [control]="form.controls.email"
-        type="email"
-        label="Correo"
-         
-        ></app-input>
-        <app-input icon="lock-closed-outline" ></app-input>
-        
-    </form>
+            <app-input icon="lock-closed-outline" [control]="form.controls.password" type="password"
+                label="Contraseña"></app-input>
+
+            {{form.value | json}}
 
 
+        </form>
+
+    </div>
 
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-title>Footer</ion-title>
+    </ion-toolbar>
+</ion-footer>
