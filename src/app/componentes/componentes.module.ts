@@ -18,7 +18,8 @@ import { InputComponent } from './input/input.component';
   exports: [
     HeaderComponent,
     LogoComponent,
-    InputComponent
+    InputComponent,
+    ReactiveFormsModule
 
   ],
   imports: [
