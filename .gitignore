@@ -67,7 +67,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
-
+# Added to ignore environments folder and its files
 environments/
+environments.prod.ts
+environments.ts
+
 
 
