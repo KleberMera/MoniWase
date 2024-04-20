@@ -29,6 +29,15 @@ export class LoginPage implements OnInit {
 
       this.firebaseSvc.signIn(this.form.value as User).then((res) => {
         console.log(res);
+
+        this.utilSvc.presentToast({
+          message: "Acceso Exitoso",
+          duration: 2500,
+          color: "tertiary",
+          position:"middle",
+          icon: 'checkmark-outline'
+        });
+
       }).catch(error =>{
         console.log(error);
 
@@ -42,6 +51,8 @@ export class LoginPage implements OnInit {
 
       }).finally(()=>{
         loading.dismiss();
+
+        
       })
     }
   }
