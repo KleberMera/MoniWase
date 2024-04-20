@@ -36,9 +36,18 @@
                 </div>
             </div>
 
+            <p class="ion-text-start" routerLink="/forgot">
+                ¿Olvidaste tu contraseña?
+            </p>
+
             <ion-button color="tertiary" expand="block" type="submit" class="submit"  shape="round" [disabled]="form.invalid">
                 <ion-icon name="log-in-outline" slot="end"></ion-icon>
                 Ingresar
+            </ion-button>
+
+            <ion-button  routerLink="/sesion" color="tertiary" expand="block" type="submit" class="submit"  shape="round">
+                <ion-icon name="person-add-outline" slot="end" ></ion-icon>
+                Registrar
             </ion-button>
         </form>
 
@@ -47,9 +56,10 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
+    <ion-toolbar color="tertiary" >
         <ion-title>
-            Derechos Resevados </ion-title>
-       
+            Company  &copy; 2024 <br> By Kleber Mera
+        </ion-title>
     </ion-toolbar>
 </ion-footer>
+
