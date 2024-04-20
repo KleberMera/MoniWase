@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ForgotPageRoutingModule } from './forgot-routing.module';
 
 import { ForgotPage } from './forgot.page';
+import { ComponentesModule } from 'src/app/componentes/componentes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ForgotPageRoutingModule
+    ForgotPageRoutingModule,
+    ComponentesModule
   ],
   declarations: [ForgotPage]
 })
