@@ -11,6 +11,7 @@ import { User } from '../models/user.models';
 @Injectable({
   providedIn: 'root',
 })
+
 export class FirebaseService {
   auth = inject(AngularFireAuth);
 
