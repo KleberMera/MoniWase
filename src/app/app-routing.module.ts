@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'forgot',
     loadChildren: () => import('./paginas/forgot/forgot.module').then( m => m.ForgotPageModule)
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./paginas/register/register.module').then( m => m.RegisterPageModule)
+  },
  
 ];
 
