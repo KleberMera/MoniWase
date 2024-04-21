@@ -15,7 +15,7 @@ export class RegisterPage implements OnInit {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required, Validators.email]),
+    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
   firebaseSvc = inject(FirebaseService);
@@ -30,16 +30,8 @@ export class RegisterPage implements OnInit {
       const loading = await this.utilSvc.loading();
       await loading.present();
 
-      this.firebaseSvc.signIn(this.form.value as User).then((res) => {
-        console.log(res);
-
-        this.utilSvc.presentToast({
-          message: "Acceso Exitoso",
-          duration: 2500,
-          color: "tertiary",
-          position:"middle",
-          icon: 'checkmark-outline'
-        });
+      this.firebaseSvc.signUp(this.form.value as User).then((res) => {
+        console.log(res); 
 
       }).catch(error =>{
         console.log(error);
