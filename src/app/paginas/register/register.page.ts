@@ -33,10 +33,9 @@ export class RegisterPage {
 
           let uid = res.user.uid;
           this.form.controls.uid.setValue(uid);
+          console.log(uid);
 
           this.setUserInfo(uid);
-          this.utilSvc.routerLink('/sesion');
-          this.form.reset();
         })
         .catch((error) => {
           console.log(error);
@@ -61,13 +60,16 @@ export class RegisterPage {
       const loading = await this.utilSvc.loading();
       await loading.present();
 
-      let path = `user/${uid}`;
+      let path = `users/${uid}`;
       delete this.form.value.password;
 
       this.firebaseSvc
         .setDocument(path, this.form.value)
-        .then(async (res) => {
+        .then(async res => {
           this.utilSvc.saveInLocalStorage('user', this.form.value);
+
+          this.utilSvc.routerLink('/sesion');
+          this.form.reset();
         })
         .catch((error) => {
           console.log(error);

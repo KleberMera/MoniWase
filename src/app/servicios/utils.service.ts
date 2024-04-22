@@ -37,12 +37,12 @@ export class UtilsService {
 
 
   //Obtiene el dato local
-  getFromLocalStorage(key: string){
-    return JSON.parse(localStorage.getItem(key))
-  }
-
   /*getFromLocalStorage(key: string){
-    return JSON.parse(localStorage.getItem(key) || '{}')
+    return JSON.parse(localStorage.getItem(key))
   }*/
+
+  getFromLocalStorage(key: string){
+    return JSON.parse(localStorage.getItem(key) || '{}')
+  }
 
 }
