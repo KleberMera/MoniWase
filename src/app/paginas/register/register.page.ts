@@ -10,7 +10,7 @@ import { UtilsService } from 'src/app/servicios/utils.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage   {
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -21,7 +21,7 @@ export class RegisterPage implements OnInit {
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
 
-  ngOnInit() {}
+
 
   async submit() {
     console.log(this.form.value);
@@ -30,8 +30,9 @@ export class RegisterPage implements OnInit {
       const loading = await this.utilSvc.loading();
       await loading.present();
 
-      this.firebaseSvc.signUp(this.form.value as User).then((res) => {
+      this.firebaseSvc.signUp(this.form.value as User).then(async (res) => {
         console.log(res); 
+        await this.firebaseSvc.updateUser(this.form.value.name)
 
       }).catch(error =>{
         console.log(error);
