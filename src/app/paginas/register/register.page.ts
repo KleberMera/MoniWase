@@ -34,6 +34,15 @@ export class RegisterPage   {
         console.log(res); 
         await this.firebaseSvc.updateUser(this.form.value.name)
 
+        this.utilSvc.presentToast({
+          message: "Cuenta Creada con Exito",
+          duration: 2500,
+          color: "tertiary",
+          position:"middle",
+          icon: 'checkmark-outline'
+        });
+
+
       }).catch(error =>{
         console.log(error);
 
