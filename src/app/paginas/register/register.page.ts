@@ -4,15 +4,14 @@ import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage   {
-
+export class RegisterPage {
   form = new FormGroup({
+    uid: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -21,45 +20,69 @@ export class RegisterPage   {
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
 
-
-
   async submit() {
     console.log(this.form.value);
     if (this.form.valid) {
-
       const loading = await this.utilSvc.loading();
       await loading.present();
 
-      this.firebaseSvc.signUp(this.form.value as User).then(async (res) => {
-        console.log(res); 
-        await this.firebaseSvc.updateUser(this.form.value.name)
+      this.firebaseSvc
+        .signUp(this.form.value as User)
+        .then(async (res) => {
+          await this.firebaseSvc.updateUser(this.form.value.name);
 
-        this.utilSvc.presentToast({
-          message: "Cuenta Creada con Exito",
-          duration: 2500,
-          color: "tertiary",
-          position:"middle",
-          icon: 'checkmark-outline'
+          let uid = res.user.uid;
+          this.form.controls.uid.setValue(uid);
+
+          this.setUserInfo(uid);
+          this.utilSvc.routerLink('/sesion');
+          this.form.reset();
+        })
+        .catch((error) => {
+          console.log(error);
+
+          this.utilSvc.presentToast({
+            message: 'Correo o Contraseña Incorrecta',
+            duration: 2500,
+            color: 'tertiary',
+            position: 'middle',
+            icon: 'alert-circle-outline',
+          });
+        })
+        .finally(() => {
+          loading.dismiss();
         });
-
-
-      }).catch(error =>{
-        console.log(error);
-
-        this.utilSvc.presentToast({
-          message: "Correo o Contraseña Incorrecta",
-          duration: 2500,
-          color: "tertiary",
-          position:"middle",
-          icon: 'alert-circle-outline'
-        });
-
-      }).finally(()=>{
-        loading.dismiss();
-
-        
-      })
     }
   }
 
+  async setUserInfo(uid: string) {
+    console.log(this.form.value);
+    if (this.form.valid) {
+      const loading = await this.utilSvc.loading();
+      await loading.present();
+
+      let path = `user/${uid}`;
+      delete this.form.value.password;
+
+      this.firebaseSvc
+        .setDocument(path, this.form.value)
+        .then(async (res) => {
+          this.utilSvc.saveInLocalStorage('user', this.form.value);
+        })
+        .catch((error) => {
+          console.log(error);
+
+          this.utilSvc.presentToast({
+            message: 'Correo o Contraseña Incorrecta',
+            duration: 2500,
+            color: 'tertiary',
+            position: 'middle',
+            icon: 'alert-circle-outline',
+          });
+        })
+        .finally(() => {
+          loading.dismiss();
+        });
+    }
+  }
 }

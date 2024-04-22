@@ -7,6 +7,8 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { User } from '../models/user.models';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { getFirestore, setDoc, doc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +16,7 @@ import { User } from '../models/user.models';
 
 export class FirebaseService {
   auth = inject(AngularFireAuth);
+  firestore = inject(AngularFirestore);
 
   //Autenticacion
 
@@ -29,5 +32,11 @@ export class FirebaseService {
 
   updateUser(displayName: string) {
     return updateProfile(getAuth().currentUser, { displayName });
+  }
+
+  //Base de datps
+
+  setDocument(path: string, data: any) {
+    return setDoc(doc(getFirestore(), path), data);
   }
 }
