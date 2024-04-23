@@ -5,7 +5,6 @@ import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 
-
 @Component({
   selector: 'app-gastos',
   templateUrl: './gastos.page.html',
@@ -15,8 +14,7 @@ export class GastosPage implements OnInit {
   mostrarCampos: boolean = false;
   nombreGasto: string = '';
   valor: string = '';
-  mes: string = '';
-  ano: string = '';
+  fecha: string = ''; // Cambiado a una variable de tipo Date
   botones = [
     { icon: 'gift-outline', nombreGasto: 'Regalos' },
     { icon: 'fitness-outline', nombreGasto: 'Gastos de Salud' },
@@ -47,8 +45,6 @@ export class GastosPage implements OnInit {
     }
   }
 
-
-
   constructor(private toastController: ToastController, private firestore: AngularFirestore) { }
 
   ngOnInit() {
@@ -56,15 +52,14 @@ export class GastosPage implements OnInit {
 
   mostrarCamposSeleccionados(boton: any) {
     this.valor = '';
-    this.mes = '';
-    this.ano = '';
+    this.fecha = ''; // Reiniciar la fecha al seleccionar un nuevo gasto
     this.mostrarCampos = true;
     // Establece el nombre del gasto en el campo de entrada
     this.nombreGasto = boton ? boton.nombreGasto : '';
   }
 
   async grabarInformacion() {
-    if (!this.nombreGasto || !this.valor || !this.mes || !this.ano) {
+    if (!this.nombreGasto || !this.valor || !this.fecha) {
       this.mostrarMensajeCampoIncompleto();
       return; // Salir del método si algún campo está incompleto
     }
@@ -75,17 +70,14 @@ export class GastosPage implements OnInit {
 
       // Actualizar todos los documentos que cumplen con el criterio
       const updatePromises = querySnapshot.docs.map(queryDocumentSnapshot => {
-        const doc = queryDocumentSnapshot.data(); // Obtener los datos del documento
         const docRef = queryDocumentSnapshot.ref; // Obtener la referencia al documento
 
         const nombreCampoGasto = this.nombreGasto.toLowerCase(); // Convertir a minúsculas
         const nuevoGasto = {};
         nuevoGasto[nombreCampoGasto] = {
           valor: this.valor,
-          mes: this.mes,
-          ano: this.ano
+          fecha: new Date(this.fecha) // Convertir la cadena de fecha a tipo Date
         };
-
 
         // Actualizar el documento con los nuevos valores
         return updateDoc(docRef, nuevoGasto);
@@ -98,8 +90,7 @@ export class GastosPage implements OnInit {
       // Reiniciar los campos después de guardar los datos
       this.nombreGasto = '';
       this.valor = '';
-      this.mes = '';
-      this.ano = '';
+      this.fecha = '';
       this.mostrarCampos = false;
       this.mostrarMensajeExito();
     } catch (error) {
@@ -107,8 +98,6 @@ export class GastosPage implements OnInit {
       // Manejar el error adecuadamente
     }
   }
-
-
   async mostrarMensajeExito() {
     const toast = await this.toastController.create({
       message: 'Gastos grabados exitosamente',
@@ -128,6 +117,7 @@ export class GastosPage implements OnInit {
     toast.present();
   }
 }
+
 
 
 
