@@ -1,23 +1,41 @@
 <app-header title="Pagina Principal"> </app-header>
 
 <ion-content>
-  <ion-button (click)="signOut()" expand="block" fill="clear" shape="round">
-    Cerra Sesion
-  </ion-button>
+  <div class="d-flex-center">
+    <ion-card>
+      <img class="imagen" src="/assets/img//logo-sesion.webp" />
+      <ion-card-header>
+        <ion-card-title class="name" color="tertiary"
+          >{{nombreUsuario}}</ion-card-title
+        >
+        <ion-card-subtitle class="bien">Bienvenido</ion-card-subtitle>
+      </ion-card-header>
 
-  <ion-card>
-    <ion-card-header>
-      <!-- Utiliza nombreUsuario en el título de la tarjeta -->
-      <ion-card-title>{{ nombreUsuario }}</ion-card-title>
-      <ion-card-subtitle>Bienvenido</ion-card-subtitle>
-    </ion-card-header>
-  
-    <ion-card-content>
-      Esta App te ayudará en controlar los gastos que tienes en tu hogar
-    </ion-card-content>
-  
-    <ion-button fill="clear" routerLink="/gastos">Gastos</ion-button>
-    <ion-button fill="clear">Action 2</ion-button>
-  </ion-card>
+      <ion-card-content>
+        Esta App te ayudara a llevar un control de tus gastos
+      </ion-card-content>
+    </ion-card>
+  </div>
 
+  <ion-tabs>
+    <ion-tab-bar slot="bottom" color="tertiary">
+      <ion-tab-button tab="radio">
+        <ion-icon name="list-outline"></ion-icon>
+        Lista
+      </ion-tab-button>
+      <ion-tab-button tab="home">
+        <ion-icon name="card-outline"></ion-icon>
+        Gastos
+      </ion-tab-button>
+
+      <ion-tab-button tab="library">
+        <ion-icon name="analytics-outline"></ion-icon>
+        Grafics
+      </ion-tab-button>
+      <ion-tab-button tab="Salir" (click)="confirmarSalir()">
+        <ion-icon name="exit-outline"></ion-icon>
+        Salir
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>
