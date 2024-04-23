@@ -8,9 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class HeaderComponent    {
 
   @Input() title!: string;
+  @Input() backButton: string;
+
+
 
   constructor() { }
 
-  ngOnInit() {}
+  
 
 }
