@@ -11,7 +11,7 @@ import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
   templateUrl: './gastos.page.html',
   styleUrls: ['./gastos.page.scss'],
 })
-export class GastosPage implements OnInit {
+export class GastosPage {
   mostrarCampos: boolean = false;
   nombreGasto: string = '';
   valor: string = '';
@@ -51,8 +51,7 @@ export class GastosPage implements OnInit {
 
   constructor(private toastController: ToastController, private firestore: AngularFirestore) { }
 
-  ngOnInit() {
-  }
+
 
   mostrarCamposSeleccionados(boton: any) {
     this.valor = '';
