@@ -18,14 +18,9 @@
       </ion-col>
       <ion-col size="6">
         <ion-item *ngIf="mostrarCampos" color="custom-color">
-          <ion-label position="floating" class="bold-text">Mes</ion-label>
-          <ion-input type="text" placeholder="Mes" [(ngModel)]="mes"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6">
-        <ion-item *ngIf="mostrarCampos" color="custom-color">
-          <ion-label position="floating" class="bold-text">Año</ion-label>
-          <ion-input type="number" placeholder="Año" [(ngModel)]="ano"></ion-input>
+          <ion-label position="floating" class="bold-text">Fecha</ion-label>
+          <ion-input aria-label="Fecha" type="date" placeholder="Fecha" [(ngModel)]="fecha"></ion-input>
+          
         </ion-item>
       </ion-col>
       
