@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NoAuthGuard } from './guards/no-auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,11 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./paginas/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./paginas/login/login.module').then( m => m.LoginPageModule), canActivate:[NoAuthGuard]
   },
   {
     path: 'sesion',
-    loadChildren: () => import('./paginas/sesion/sesion.module').then( m => m.SesionPageModule)
+    loadChildren: () => import('./paginas/sesion/sesion.module').then( m => m.SesionPageModule), canActivate:[AuthGuard]
   },
   {
     path: 'forgot',

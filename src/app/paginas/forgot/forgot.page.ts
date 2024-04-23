@@ -10,10 +10,8 @@ import { UtilsService } from 'src/app/servicios/utils.service';
   styleUrls: ['./forgot.page.scss'],
 })
 export class ForgotPage {
-
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-   
   });
 
   firebaseSvc = inject(FirebaseService);
@@ -30,14 +28,22 @@ export class ForgotPage {
         .then((res) => {
           console.log(res);
 
+          this.utilSvc.presentToast({
+            message: 'Correo Enviado con Éxito',
+            duration: 1500,
+            color: 'tertiary',
+            position: 'middle',
+            icon: 'mail-outline',
+          });
 
-         
+          this.utilSvc.routerLink('/login');
+          this.form.reset();
         })
         .catch((error) => {
           console.log(error);
 
           this.utilSvc.presentToast({
-            message: 'Correo o Contraseña Incorrecta',
+            message: 'El Correo Ingresado no Existe',
             duration: 2500,
             color: 'tertiary',
             position: 'middle',
@@ -49,6 +55,4 @@ export class ForgotPage {
         });
     }
   }
-
-  
 }

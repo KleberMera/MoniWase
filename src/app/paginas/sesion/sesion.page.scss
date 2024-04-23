@@ -1,0 +1,28 @@
+.imagen {
+    width: 300px; /* Cambia el ancho de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Convierte la imagen en un bloque */
+    margin-left: auto; /* Centra horizontalmente */
+    margin-right: auto; /* Centra horizontalmente */
+}
+
+.name{
+    font-size: 40px;
+    font-weight: bold;
+    
+    
+}
+
+.bien{
+    font-size: 40px;
+    
+}
+
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+
