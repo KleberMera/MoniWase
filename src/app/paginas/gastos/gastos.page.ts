@@ -41,7 +41,7 @@ export class GastosPage {
     { icon: 'logo-amazon', nombreGasto: 'Compra en Línea' },
     { icon: 'bus-outline', nombreGasto: 'Transporte' },
     { icon: 'water-outline', nombreGasto: 'Servicios básicos' },
-    { icon: 'construct-outline', nombreGasto: 'Reparación / Mantenimiento' }
+    { icon: 'construct-outline', nombreGasto: 'Reparación-Mantenimiento' }
   ];
   nombreUsuario: string;
 
