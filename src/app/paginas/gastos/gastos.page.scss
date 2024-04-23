@@ -1,39 +1,44 @@
+ion-content {
+  --background: var(--ion-color-custom-color); /* Cambia el color de fondo */
+}
+
+ion-card {
+  margin: auto; /* Centra el card horizontalmente */
+  max-width: 500px; /* Limita el ancho del card */
+}
+
+ion-item {
+  --background: transparent; /* Establece el fondo del item como transparente */
+}
+
+.bold-text {
+  font-weight: bold; /* Hace que el texto sea negrita */
+}
+
+.d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .icon-button {
-    width: 80px;
-    --border-radius: 16px; /* Bordes redondeados */
-    --box-shadow: 0 2px 4px #56e0ff; /* Sombra ligera */
-    color:azure;
-  }
-  
-  .icon-button ion-icon {
-    font-size: 24px;
-  }
-  
-  ion-content {
-    --ion-grid-padding: 30px; /* Amenta el espaciado interno del ion-grid */
-    --ion-background-color: #101010;
-  }
-  
-  ion-row {
-    --ion-justify-content: center; /* Centra los botones */
-  }
+  --background: transparent; /* Establece el fondo del botón como transparente */
+  --border-radius: 50%; /* Hace que el botón tenga forma circular */
+}
 
-  ion-label {
-    color: #5389fd !important;  /* Cambia el color del texto de los ion-label */
-  }
-  
-  ion-input {
-    color: #8e8e8e; /* Cambia el color del texto de los ion-input */
-  }
-  .bold-text {
-    font-weight: bold;
-  }
-  
+.ion-padding {
+  padding: 20px; /* Agrega un relleno alrededor del contenido */
+}
 
-  
-  .d-flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 90px;
-  }
+.ion-row {
+  justify-content: center; /* Centra los elementos horizontalmente dentro de la fila */
+}
+
+.ion-justify-content-center {
+  justify-content: center; /* Centra los elementos horizontalmente */
+}
+
+.ion-align-items-center {
+  align-items: center; /* Centra los elementos verticalmente */
+}

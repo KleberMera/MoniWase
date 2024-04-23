@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
@@ -11,6 +11,20 @@ import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
   styleUrls: ['./gastos.page.scss'],
 })
 export class GastosPage {
+  tabs = [
+    { icon: 'list-sharp', name: 'Lista', routerLink: '/listas' },
+    { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
+    { icon: 'analytics-outline', name: 'Grafics', routerLink: '/graficos' },
+    {
+      icon: 'exit-outline',
+      name: 'Salir',
+      clickHandler: () => this.confirmarSalir(),
+    },
+  ];
+  
+
+
+
   mostrarCampos: boolean = false;
   nombreGasto: string = '';
   valor: string = '';
@@ -33,6 +47,7 @@ export class GastosPage {
 
   firebaseSvc = inject(FirebaseService);
   utilisSvc = inject(UtilsService);
+  alertCtrl = inject(AlertController)
 
   //alertCtrl = inject(AlertController);
 
@@ -114,6 +129,36 @@ export class GastosPage {
       color: "medium"
     });
     toast.present();
+  }
+
+
+  async confirmarSalir() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmación',
+      message: '¿Estás seguro de que deseas salir?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'tertiary',
+          handler: () => {
+            console.log('Cancelar');
+          },
+        },
+        {
+          text: 'Salir',
+          handler: () => {
+            this.signOut(); // Llama al método signOut si el usuario confirma salir
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  signOut() {
+    this.firebaseSvc.signOut();
   }
 }
 
