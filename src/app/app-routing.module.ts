@@ -28,7 +28,15 @@ const routes: Routes = [
   {
     path: 'gastos',
     loadChildren: () => import('./paginas/gastos/gastos.module').then( m => m.GastosPageModule)
+  },  {
+    path: 'listas',
+    loadChildren: () => import('./paginas/listas/listas.module').then( m => m.ListasPageModule)
   },
+  {
+    path: 'graficos',
+    loadChildren: () => import('./paginas/graficos/graficos.module').then( m => m.GraficosPageModule)
+  },
+
 
  
 ];

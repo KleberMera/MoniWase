@@ -5,30 +5,25 @@ import { LogoComponent } from './logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from './input/input.component';
-
-
+import { TabsComponent } from './tabs/tabs.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    LogoComponent,
-    InputComponent
-
-  ],
+  declarations: [HeaderComponent, LogoComponent, InputComponent, TabsComponent],
   exports: [
     HeaderComponent,
     LogoComponent,
     InputComponent,
-    ReactiveFormsModule
+    TabsComponent,
 
+    ReactiveFormsModule,
   ],
   imports: [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    FormsModule
-
-    
-  ]
+    FormsModule,
+    RouterModule,
+  ],
 })
-export class ComponentesModule { }
+export class ComponentesModule {}

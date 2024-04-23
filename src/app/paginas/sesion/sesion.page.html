@@ -1,4 +1,4 @@
-<app-header title="Pagina Principal"> </app-header>
+<app-header title="Home"> </app-header>
 
 <ion-content>
   <div class="d-flex-center">
@@ -15,29 +15,7 @@
         Esta App te ayudara a llevar un control de tus gastos
       </ion-card-content>
     </ion-card>
+
+    <app-tabs [tabs]="tabs"></app-tabs>
   </div>
-
-  <ion-tabs>
-    <ion-tab-bar slot="bottom" color="tertiary">
-      <ion-tab-button tab="radio">
-        <ion-icon name="list-outline"></ion-icon>
-        Lista
-      </ion-tab-button>
-      <ion-tab-button tab="home">
-        <ion-icon
-        routerLink="/gastos"
-        name="card-outline"></ion-icon>
-        Gastos
-      </ion-tab-button>
-
-      <ion-tab-button tab="library">
-        <ion-icon name="analytics-outline"></ion-icon>
-        Grafics
-      </ion-tab-button>
-      <ion-tab-button tab="Salir" (click)="confirmarSalir()">
-        <ion-icon name="exit-outline"></ion-icon>
-        Salir
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
 </ion-content>

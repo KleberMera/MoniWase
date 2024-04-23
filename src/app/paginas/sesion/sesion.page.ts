@@ -8,18 +8,28 @@ import { UtilsService } from 'src/app/servicios/utils.service';
   templateUrl: './sesion.page.html',
   styleUrls: ['./sesion.page.scss'],
 })
-export class SesionPage  {
+export class SesionPage {
+  tabs = [
+    { icon: 'list-sharp', name: 'Lista', routerLink: '/listas' },
+    { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
+    { icon: 'analytics-outline', name: 'Grafics', routerLink: '/graficos' },
+    {
+      icon: 'exit-outline',
+      name: 'Salir',
+      clickHandler: () => this.confirmarSalir(),
+    },
+  ];
+
   nombreUsuario: string;
-  
+
   firebaseSvc = inject(FirebaseService);
   utilisSvc = inject(UtilsService);
 
   alertCtrl = inject(AlertController);
 
-
   // Función para cerrar sesión
 
-  signOut(){
+  signOut() {
     this.firebaseSvc.signOut();
   }
 
@@ -42,20 +52,17 @@ export class SesionPage  {
           cssClass: 'tertiary',
           handler: () => {
             console.log('Cancelar');
-          }
-        }, {
+          },
+        },
+        {
           text: 'Salir',
           handler: () => {
             this.signOut(); // Llama al método signOut si el usuario confirma salir
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
-  
+
     await alert.present();
   }
-
-
-
- 
 }

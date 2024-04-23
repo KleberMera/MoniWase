@@ -68,7 +68,7 @@ export class LoginPage {
             message: `Te damos la Bienvenida ${user.name}`,
             duration: 1500,
             color: 'tertiary',
-            position: 'middle',
+            position: 'top',
             icon: 'person-circle-outline',
           });
         })
