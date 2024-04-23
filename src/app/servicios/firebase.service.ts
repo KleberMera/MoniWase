@@ -11,6 +11,7 @@ import { User } from '../models/user.models';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getFirestore, setDoc, doc } from '@angular/fire/firestore';
 import { getDoc } from 'firebase/firestore';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ import { getDoc } from 'firebase/firestore';
 export class FirebaseService {
   auth = inject(AngularFireAuth);
   firestore = inject(AngularFirestore);
+  utilsSvc = inject(UtilsService);
 
   //Autenticacion
 
@@ -43,6 +45,15 @@ export class FirebaseService {
   sendRecoveryEmail(email: string) {
     return sendPasswordResetEmail(getAuth(), email);
   }
+
+  //Cerrar Sesion
+  signOut() {
+    getAuth().signOut();
+    localStorage.removeItem('user');
+    this.utilsSvc.routerLink('/login')
+
+  }
+
 
   //Base de datps
 
