@@ -3,7 +3,7 @@
 <ion-content>
   <div class="d-flex-center">
     <ion-card>
-      <img class="imagen" src="/src/assets/img/logo-sesion.jpg" />
+      <img class="imagen" src="/assets/img/logo-sesion.jpg" />
       <ion-card-header>
         <ion-card-title class="name" color="tertiary"
           >{{nombreUsuario}}</ion-card-title
@@ -24,7 +24,9 @@
         Lista
       </ion-tab-button>
       <ion-tab-button tab="home">
-        <ion-icon name="card-outline"></ion-icon>
+        <ion-icon
+        routerLink="/gastos"
+        name="card-outline"></ion-icon>
         Gastos
       </ion-tab-button>
 
