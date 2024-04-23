@@ -2,10 +2,22 @@
 
 <ion-content>
   <ion-button (click)="signOut()" expand="block" fill="clear" shape="round">
-    Cerrar Sesion
+    Cerra Sesion
   </ion-button>
 
-  <ion-button routerLink="/gastos" expand="block" fill="clear" shape="round">
-    Gastos
-  </ion-button>
+  <ion-card>
+    <ion-card-header>
+      <!-- Utiliza nombreUsuario en el título de la tarjeta -->
+      <ion-card-title>{{ nombreUsuario }}</ion-card-title>
+      <ion-card-subtitle>Bienvenido</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Esta App te ayudará en controlar los gastos que tienes en tu hogar
+    </ion-card-content>
+  
+    <ion-button fill="clear" routerLink="/gastos">Gastos</ion-button>
+    <ion-button fill="clear">Action 2</ion-button>
+  </ion-card>
+
 </ion-content>

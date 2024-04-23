@@ -8,7 +8,7 @@ import { UtilsService } from 'src/app/servicios/utils.service';
   styleUrls: ['./sesion.page.scss'],
 })
 export class SesionPage  {
-
+  nombreUsuario: string;
   
   firebaseSvc = inject(FirebaseService);
   utilisSvc = inject(UtilsService);
@@ -16,4 +16,14 @@ export class SesionPage  {
   signOut(){
     this.firebaseSvc.signOut();
   }
+
+  ionViewWillEnter() {
+    // Obtener el nombre de usuario del localStorage
+    const userData = this.utilisSvc.getFromLocalStorage('user');
+    if (userData && userData.name) {
+      this.nombreUsuario = userData.name;
+    }
+  }
+
+ 
 }

@@ -23,7 +23,7 @@ export class FirebaseService {
 
   //Autenticacion
 
-  getAuth(){
+  getAuth() {
     return getAuth();
   }
 
@@ -50,10 +50,8 @@ export class FirebaseService {
   signOut() {
     getAuth().signOut();
     localStorage.removeItem('user');
-    this.utilsSvc.routerLink('/login')
-
+    this.utilsSvc.routerLink('/login');
   }
-
 
   //Base de datps
 
