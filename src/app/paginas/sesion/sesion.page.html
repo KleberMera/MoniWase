@@ -1,9 +1,11 @@
-<app-header title="Pagina Principal" >
-
-
-</app-header>
+<app-header title="Pagina Principal"> </app-header>
 
 <ion-content>
+  <ion-button (click)="signOut()" expand="block" fill="clear" shape="round">
+    Cerrar Sesion
+  </ion-button>
 
- 
+  <ion-button routerLink="/gastos" expand="block" fill="clear" shape="round">
+    Gastos
+  </ion-button>
 </ion-content>
