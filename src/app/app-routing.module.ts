@@ -22,7 +22,8 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./paginas/register/register.module').then( m => m.RegisterPageModule)
-  },  {
+  },
+  {
     path: 'gastos',
     loadChildren: () => import('./paginas/gastos/gastos.module').then( m => m.GastosPageModule)
   },
