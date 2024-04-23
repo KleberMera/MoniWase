@@ -12,6 +12,6 @@ export class AppComponent {
   }
 
   async plugin() {
-    await StatusBar.setBackgroundColor({ color: '#5260ff' });
+    await StatusBar.setBackgroundColor({ color: '#6964FE' });
   }
 }
