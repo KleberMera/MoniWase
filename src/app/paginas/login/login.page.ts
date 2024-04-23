@@ -9,7 +9,7 @@ import { UtilsService } from 'src/app/servicios/utils.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage   {
+export class LoginPage {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -17,8 +17,6 @@ export class LoginPage   {
 
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
-
- 
 
   async submit() {
     console.log(this.form.value);
@@ -31,12 +29,47 @@ export class LoginPage   {
         .then((res) => {
           console.log(res);
 
+          this.getUserInfo(res.user.uid);
+        })
+        .catch((error) => {
+          console.log(error);
+
           this.utilSvc.presentToast({
-            message: 'Acceso Exitoso',
+            message: 'Correo o Contraseña Incorrecta',
             duration: 2500,
             color: 'tertiary',
             position: 'middle',
-            icon: 'checkmark-outline',
+            icon: 'alert-circle-outline',
+          });
+        })
+        .finally(() => {
+          loading.dismiss();
+        });
+    }
+  }
+
+  async getUserInfo(uid: string) {
+    console.log(this.form.value);
+    if (this.form.valid) {
+      const loading = await this.utilSvc.loading();
+      await loading.present();
+
+      let path = `users/${uid}`;
+
+      this.firebaseSvc
+        .getDocument(path)
+        .then((user: User) => {
+          this.utilSvc.saveInLocalStorage('user', user);
+
+          this.utilSvc.routerLink('/sesion');
+          this.form.reset();
+
+          this.utilSvc.presentToast({
+            message: `Te damos la Bienvenida ${user.name}`,
+            duration: 1500,
+            color: 'tertiary',
+            position: 'middle',
+            icon: 'person-circle-outline',
           });
         })
         .catch((error) => {

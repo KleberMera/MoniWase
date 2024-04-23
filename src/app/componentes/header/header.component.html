@@ -1,16 +1,17 @@
-<ion-header class="ion-no-header" >
-  <ion-toolbar  color="tertiary">
-    <ion-buttons slot="start">
-      <ion-back-button *ngIf="backButton" [defaultHref]="backButton"  ></ion-back-button>
+<ion-header class="ion-no-header">
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start" mode="md">
+      <ion-back-button
+        *ngIf="backButton"
+        [defaultHref]="backButton"
+      ></ion-back-button>
     </ion-buttons>
 
-    
     <ion-title>
       <strong>
-        {{title}}
+        {{ title }}
         <!-- <div 
          class="admin" > A D M I N</div> -->
-
       </strong>
     </ion-title>
   </ion-toolbar>

@@ -9,6 +9,7 @@ import {
 import { User } from '../models/user.models';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getFirestore, setDoc, doc } from '@angular/fire/firestore';
+import { getDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +39,9 @@ export class FirebaseService {
 
   setDocument(path: string, data: any) {
     return setDoc(doc(getFirestore(), path), data);
+  }
+
+  async getDocument(path: string) {
+    return (await getDoc(doc(getFirestore(), path))).data();
   }
 }
