@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { GastosPageRoutingModule } from './gastos-routing.module';
 
 import { GastosPage } from './gastos.page';
+import { ComponentesModule } from 'src/app/componentes/componentes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GastosPageRoutingModule
+    GastosPageRoutingModule,
+    ComponentesModule
   ],
   declarations: [GastosPage]
 })
