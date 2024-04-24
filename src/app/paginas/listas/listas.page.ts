@@ -42,15 +42,32 @@ export class ListasPage {
   }
 
   processUserData(userData: any) {
+    const categoriasMap = new Map<string, any>();
+  
     for (const key in userData) {
       if (Object.prototype.hasOwnProperty.call(userData, key) && key !== 'uid' && key !== 'email' && key !== 'name') {
-        const categoria = {
-          nombre: key,
-          fecha: new Date(userData[key].fecha.seconds * 1000),
-          valor: userData[key].valor
-        };
-        this.categorias.push(categoria);
+        const nombreCategoria = key.replace(/\d+$/, ''); // Eliminar números al final del nombre de la categoría
+        const fecha = new Date(userData[key].fecha.seconds * 1000);
+        const fechaFormateada = fecha.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
+        const valor = userData[key].valor.toLocaleString('es-ES', { style: 'currency', currency: 'USD' });
+  
+        // Verificar si ya existe la categoría en el mapa
+        if (categoriasMap.has(nombreCategoria)) {
+          // Si existe, agregar los datos a la categoría existente
+          const categoriaExistente = categoriasMap.get(nombreCategoria);
+          categoriaExistente.datos.push({ fecha: fechaFormateada, valor });
+        } else {
+          // Si no existe, crear una nueva entrada en el mapa
+          categoriasMap.set(nombreCategoria, { nombre: nombreCategoria, datos: [{ fecha: fechaFormateada, valor }] });
+        }
       }
     }
+  
+    // Convertir el mapa a un arreglo para usarlo en el HTML
+    this.categorias = Array.from(categoriasMap.values());
+    console.log('Categorías para mostrar:', this.categorias);
   }
+  
+  
+  
 }

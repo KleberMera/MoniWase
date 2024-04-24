@@ -1,14 +1,18 @@
-<app-header title="Listado De Gastos" ></app-header>
+<app-header title="Listado De Gastos"></app-header>
 
 <ion-content>
-  <div *ngIf="user">
-    <p>Nombre de usuario: {{ user.name }}</p>
-  </div>
+  <ion-card *ngFor="let categoria of categorias" mode="ios" color="tertiary">
+    <ion-card-header>
+      <ion-card-title>Categoría: {{ categoria.nombre }}</ion-card-title>
+    </ion-card-header>
 
-  <div *ngFor="let categoria of categorias">
-    <h3>Categoría: {{ categoria.nombre }}</h3>
-    <p>Fecha: {{ categoria.fecha | date }}</p>
-    <p>Valor: {{ categoria.valor }}</p>
-    <hr>
-  </div>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item *ngFor="let dato of categoria.datos">
+          <ion-label class="fecha">Fecha: {{ dato.fecha }}</ion-label>
+          <ion-label class="valor" slot="end">Valor: {{ dato.valor }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
