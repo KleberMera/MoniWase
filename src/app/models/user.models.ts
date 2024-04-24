@@ -13,12 +13,4 @@ export interface User {
     name: string;
   }
   
-  export interface CategoryData {
-    fechas: string[];
-    valores: string[];
-  }
-  
-  export interface UserCategories {
-    [categoria: string]: CategoryData;
-  }
-  
+ 

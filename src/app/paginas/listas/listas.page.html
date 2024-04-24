@@ -1,6 +1,14 @@
 <app-header title="Listado De Gastos" ></app-header>
 
 <ion-content>
+  <div *ngIf="user">
+    <p>Nombre de usuario: {{ user.name }}</p>
+  </div>
 
-
+  <div *ngFor="let categoria of categorias">
+    <h3>Categoría: {{ categoria.nombre }}</h3>
+    <p>Fecha: {{ categoria.fecha | date }}</p>
+    <p>Valor: {{ categoria.valor }}</p>
+    <hr>
+  </div>
 </ion-content>
