@@ -5,39 +5,37 @@ import { AlertController } from '@ionic/angular';
 import { User2 } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
+import { saveAs } from 'file-saver';
+import { CategoryData, UserCategories } from 'src/app/models/user.models';
+
 
 @Component({
   selector: 'app-listas',
   templateUrl: './listas.page.html',
   styleUrls: ['./listas.page.scss'],
 })
-export class ListasPage {
 
+export class ListasPage {
   firebaseSvc = inject(FirebaseService);
   utilisSvc = inject(UtilsService);
-  alertCtrl = inject(AlertController)
-
-  /*tabs = [
-    { icon: 'list-sharp', name: 'Lista', routerLink: '/listas' },
-    { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
-    { icon: 'analytics-outline', name: 'Grafics', routerLink: '/graficos' },
-    {
-      icon: 'exit-outline',
-      name: 'Salir',
-      clickHandler: () => this.confirmarSalir(),
-    },
-  ];*/
+  alertCtrl = inject(AlertController);
 
   user: User2 | null = null;
-  userData: any | null = null;
+  userData: UserCategories | null = null;
 
-  constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore) {
-    this.afAuth.authState.subscribe(user => {
+
+  
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore
+  ) {
+    this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.user = {
           uid: user.uid,
           email: user.email || '',
-          name: user.displayName || ''
+          name: user.displayName || '',
         };
         console.log('Usuario conectado:', this.user);
         this.getUserData(user.uid);
@@ -48,71 +46,82 @@ export class ListasPage {
   }
 
   getUserData(uid: string) {
-    this.firestore.collection('users').doc(uid).valueChanges().subscribe(data => {
-      if (data) {
-        this.userData = data;
-        this.processUserData(this.userData);
-      } else {
-        console.log('No se encontraron datos del usuario');
-      }
-    });
+    this.firestore
+      .collection('users')
+      .doc(uid)
+      .valueChanges()
+      .subscribe((data: UserCategories) => {
+        if (data) {
+          this.userData = data;
+          this.processUserData(this.userData);
+        } else {
+          console.log('No se encontraron datos del usuario');
+        }
+      });
+      
   }
+
+  ionViewWillEnter() {
+    // Obtener userCategories del localStorage
+    const userCategories = this.utilisSvc.getFromLocalStorage('userCategories');
+    if (userCategories) {
+      this.userData = userCategories;
+    }
+  }
+  
 
   processUserData(userData: any) {
-    const userCategories: { [uid: string]: { [category: string]: { fecha: Date[], valor: number[] } } } = {};
-  
+    const userCategories: {
+      [userid: string]: {
+        categorias: {
+          [categoria: string]: { fechas: string[]; valores: string[] };
+        };
+      };
+    } = {};
+
     for (const key in userData) {
-      if (Object.prototype.hasOwnProperty.call(userData, key) && key !== 'uid' && key !== 'email' && key !== 'name') {
+      if (
+        Object.prototype.hasOwnProperty.call(userData, key) &&
+        key !== 'uid' &&
+        key !== 'email' &&
+        key !== 'name'
+      ) {
         const category = userData[key];
         const categoryName = key;
-  
+
         if (!userCategories[this.user!.uid]) {
-          userCategories[this.user!.uid] = {};
+          userCategories[this.user!.uid] = { categorias: {} };
         }
-  
-        if (!userCategories[this.user!.uid][categoryName]) {
-          userCategories[this.user!.uid][categoryName] = {
-            fecha: [new Date(category.fecha.seconds * 1000)],
-            valor: [category.valor]
+
+        if (!userCategories[this.user!.uid].categorias[categoryName]) {
+          userCategories[this.user!.uid].categorias[categoryName] = {
+            fechas: [],
+            valores: [],
           };
-        } else {
-          userCategories[this.user!.uid][categoryName].fecha.push(new Date(category.fecha.seconds * 1000));
-          userCategories[this.user!.uid][categoryName].valor.push(category.valor);
         }
+
+        const fechaFormatted = new Date(
+          category.fecha.seconds * 1000
+        ).toLocaleDateString('es-ES');
+        const valorFormatted = category.valor.toLocaleString('es-ES', {
+          style: 'currency',
+          currency: 'USD',
+        });
+
+        userCategories[this.user!.uid].categorias[categoryName].fechas.push(
+          fechaFormatted
+        );
+        userCategories[this.user!.uid].categorias[categoryName].valores.push(
+          valorFormatted
+        );
       }
     }
-  
-    console.log(userCategories);
-  }
-  
 
-  /*async confirmarSalir() {
-    const alert = await this.alertCtrl.create({
-      header: 'Confirmación',
-      message: '¿Estás seguro de que deseas salir?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'tertiary',
-          handler: () => {
-            console.log('Cancelar');
-          },
-        },
-        {
-          text: 'Salir',
-          handler: () => {
-            this.signOut(); // Llama al método signOut si el usuario confirma salir
-          },
-        },
-      ],
-    });
-
-    await alert.present();
+    const jsonData = JSON.stringify(userCategories, null, 2);
+    console.log(jsonData); // Imprimir el JSON en la consola
+   
   }
 
-  signOut() {
-    this.firebaseSvc.signOut();
-  }*/
+
 
 }

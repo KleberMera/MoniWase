@@ -86,9 +86,19 @@ export class GastosPage {
       const updatePromises = querySnapshot.docs.map(queryDocumentSnapshot => {
         const docRef = queryDocumentSnapshot.ref; // Obtener la referencia al documento
 
-        const nombreCampoGasto = this.nombreGasto.toLowerCase(); // Convertir a minúsculas
+        // Obtener el nombre de campo
+        let nombreCampoGasto = this.nombreGasto.toLowerCase();
+        let i = 1;
+        let nuevoNombreCampoGasto = nombreCampoGasto;
+
+        // Verificar si el campo ya existe en el documento
+        while (queryDocumentSnapshot.data().hasOwnProperty(nuevoNombreCampoGasto)) {
+          nuevoNombreCampoGasto = nombreCampoGasto + i; // Añadir un número incremental al nombre del campo
+          i++;
+        }
+
         const nuevoGasto = {};
-        nuevoGasto[nombreCampoGasto] = {
+        nuevoGasto[nuevoNombreCampoGasto] = {
           valor: this.valor,
           fecha: new Date(this.fecha) // Convertir la cadena de fecha a tipo Date
         };
