@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AlertController } from '@ionic/angular';
 import { User2 } from 'src/app/models/user.models';
+import { FirebaseService } from 'src/app/servicios/firebase.service';
+import { UtilsService } from 'src/app/servicios/utils.service';
 
 @Component({
   selector: 'app-listas',
@@ -9,6 +12,50 @@ import { User2 } from 'src/app/models/user.models';
   styleUrls: ['./listas.page.scss'],
 })
 export class ListasPage {
+  tabs = [
+    { icon: 'list-sharp', name: 'Lista', routerLink: '/listas' },
+    { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
+    { icon: 'analytics-outline', name: 'Grafics', routerLink: '/graficos' },
+    {
+      icon: 'exit-outline',
+      name: 'Salir',
+      clickHandler: () => this.confirmarSalir(),
+    },
+  ];
+
+  firebaseSvc = inject(FirebaseService);
+  utilisSvc = inject(UtilsService);
+  alertCtrl = inject(AlertController)
+
+  async confirmarSalir() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmación',
+      message: '¿Estás seguro de que deseas salir?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'tertiary',
+          handler: () => {
+            console.log('Cancelar');
+          },
+        },
+        {
+          text: 'Salir',
+          handler: () => {
+            this.signOut(); // Llama al método signOut si el usuario confirma salir
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  signOut() {
+    this.firebaseSvc.signOut();
+  }
+  
 
   user: User2 | null = null;
   userData: any | null = null;
