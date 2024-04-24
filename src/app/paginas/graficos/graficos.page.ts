@@ -11,6 +11,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class GraficosPage implements OnInit {
   categorias: any[] = [];
   fechas: any[] = [];
+  chartCategorias: Chart;
 
   constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore) {}
 
@@ -79,7 +80,10 @@ export class GraficosPage implements OnInit {
     const valoresCategorias = this.categorias.map(categoria => categoria.total);
 
     const ctxCategorias = document.getElementById('chartCategorias') as HTMLCanvasElement;
-    const chartCategorias = new Chart(ctxCategorias, {
+    if (this.chartCategorias) {
+      this.chartCategorias.destroy(); // Destruir el gráfico existente si hay uno
+    }
+    this.chartCategorias = new Chart(ctxCategorias, {
       type: 'bar',
       data: {
         labels: labelsCategorias,
@@ -141,6 +145,52 @@ export class GraficosPage implements OnInit {
         }
       }
     });
+  }
+
+  selectCategory(event: any) {
+    const selectedCategory = event.detail.value;
+    if (selectedCategory) {
+      const selectedCategoryData = this.categorias.find(categoria => categoria.nombre === selectedCategory);
+      if (selectedCategoryData) {
+        const ctxCategorias = document.getElementById('chartCategorias') as HTMLCanvasElement;
+        if (this.chartCategorias) {
+          this.chartCategorias.destroy(); // Destruir el gráfico existente si hay uno
+        }
+
+        // Generar el nuevo gráfico solo para la categoría seleccionada
+        const labels = [selectedCategoryData.nombre];
+        const valores = [selectedCategoryData.total];
+
+        this.chartCategorias = new Chart(ctxCategorias, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Gastos por categoría',
+              data: valores,
+              backgroundColor: this.getRandomColors(valores.length),
+            }],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Total de gastos'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Categoría'
+                }
+              }
+            }
+          }
+        });
+      }
+    }
   }
 
   // Función para obtener colores aleatorios
