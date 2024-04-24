@@ -12,6 +12,7 @@ export class SesionPage {
   tabs = [
     { icon: 'list-sharp', name: 'Lista',  routerLink: '/listas' },
     { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
+    { icon: 'home-outline', name: 'Home', routerLink: '/sesion' },
     { icon: 'analytics-outline', name: 'Grafics',  routerLink: '/graficos' },
     { icon: 'exit-outline', name: 'Salir', clickHandler: () => this.confirmarSalir() },
   ];

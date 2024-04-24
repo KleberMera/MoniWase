@@ -13,16 +13,12 @@ import { UtilsService } from 'src/app/servicios/utils.service';
 })
 export class ListasPage {
   tabs = [
-    { icon: 'list-sharp', name: 'Lista', routerLink: '/listas' },
+    { icon: 'list-sharp', name: 'Lista',  routerLink: '/listas' },
     { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
-    { icon: 'analytics-outline', name: 'Grafics', routerLink: '/graficos' },
-    {
-      icon: 'exit-outline',
-      name: 'Salir',
-      clickHandler: () => this.confirmarSalir(),
-    },
+    { icon: 'home-outline', name: 'Home', routerLink: '/sesion' },
+    { icon: 'analytics-outline', name: 'Grafics',  routerLink: '/graficos' },
+    { icon: 'exit-outline', name: 'Salir', clickHandler: () => this.confirmarSalir() },
   ];
-
   firebaseSvc = inject(FirebaseService);
   utilisSvc = inject(UtilsService);
   alertCtrl = inject(AlertController)
