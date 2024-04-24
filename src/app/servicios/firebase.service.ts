@@ -63,16 +63,4 @@ export class FirebaseService {
     return (await getDoc(doc(getFirestore(), path))).data();
   }
 
-  // firebase.service.ts
-
-async getUserExpenses(userId: string) {
-  try {
-    const userExpensesDoc = await this.getDocument(`users/${userId}/expenses`);
-    return userExpensesDoc ? userExpensesDoc : null;
-  } catch (error) {
-    console.error('Error al obtener los gastos del usuario:', error);
-    return null;
-  }
-}
-
 }
