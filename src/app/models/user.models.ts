@@ -5,10 +5,10 @@ export interface User{
     name: string
 }
 
+
 export interface User2{
     uid: string;
     email: string;
 
     name: string
 }
-

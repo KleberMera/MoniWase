@@ -8,12 +8,14 @@ import { GraficosPageRoutingModule } from './graficos-routing.module';
 
 import { GraficosPage } from './graficos.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GraficosPageRoutingModule
+    GraficosPageRoutingModule,
+
   ],
   declarations: [GraficosPage]
 })

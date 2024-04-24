@@ -1,6 +1,5 @@
 ion-content {
   --background: var(--ion-color-custom-color); /* Cambia el color de fondo */
-  --ion-safe-area-bottom: env(safe-area-inset-bottom); 
 }
 
 ion-card {
@@ -42,12 +41,4 @@ ion-item {
 
 .ion-align-items-center {
   align-items: center; /* Centra los elementos verticalmente */
-}
-
-
-
-.footer{
- 
-  bottom: 0;
-  width: 100%;
 }

@@ -6,88 +6,59 @@
 
 <ion-content [fullscreen]="true" class="ion-padding" color="custom-color">
   <ion-grid>
-    <ion-card>
-      <p class="ion-text-center">Seleciona una categorias</p>
-      <ion-row>
-        <ion-col size="12">
-          <!-- Campos de entrada -->
-          <ion-item *ngIf="mostrarCampos" color="custom-color">
-            <ion-label position="stacked" class="bold-text">Gasto</ion-label>
-            <ion-input type="text">{{nombreGasto}}</ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item *ngIf="mostrarCampos" color="custom-color">
-            <ion-label position="floating" class="bold-text">Valor</ion-label>
-            <ion-input
-              type="number"
-              placeholder="Valor"
-              [(ngModel)]="valor"
-            ></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item *ngIf="mostrarCampos" color="custom-color">
-            <ion-label position="floating" class="bold-text">Fecha</ion-label>
-            <ion-input
-              type="date"
-              placeholder="Fecha"
-              [(ngModel)]="fecha"
-            ></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <!-- Espacio adicional entre los campos de fecha y los botones -->
-      <ion-row>
-        <ion-col size="12"> &nbsp; </ion-col>
-      </ion-row>
-    </ion-card>
-
-    <div class="d-flex-center">
-      <ion-row justify-content-center>
-        <!-- Botones de icono -->
-        <ng-container *ngFor="let boton of botones">
-          <ion-col size="auto">
-            <ion-button
-              class="icon-button"
-              fill="clear"
-              (click)="mostrarCamposSeleccionados(boton)"
-            >
-              <ion-icon
-                slot="icon-only"
-                [ios]="boton.icon"
-                md="settings-sharp"
-              ></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ng-container>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12"> &nbsp; </ion-col>
-      </ion-row>
-      <ion-row
-        class="ion-justify-content-center ion-align-items-center"
-        style="height: 100%"
-      >
-        <!-- Botón de grabar -->
+    <ion-row>
+      <ion-col size="12">
+        <!-- Campos de entrada -->
+        <ion-item *ngIf="mostrarCampos" color="custom-color">
+          <ion-label position="stacked" class="bold-text">Gasto</ion-label>
+          <ion-input type="text">{{nombreGasto}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item *ngIf="mostrarCampos" color="custom-color">
+          <ion-label position="floating" class="bold-text">Valor</ion-label>
+          <ion-input type="number" placeholder="Valor" [(ngModel)]="valor"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item *ngIf="mostrarCampos" color="custom-color">
+          <ion-label position="floating" class="bold-text">Fecha</ion-label>
+          <ion-input aria-label="Fecha" type="date" placeholder="Fecha" [(ngModel)]="fecha"></ion-input>
+          
+        </ion-item>
+      </ion-col>
+      
+    </ion-row>
+    <!-- Espacio adicional entre los campos de fecha y los botones -->
+    <ion-row>
+      <ion-col size="12">
+        &nbsp;
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <!-- Botones de icono -->
+      <ng-container *ngFor="let boton of botones">
         <ion-col size="auto">
-          <ion-button color="tertiary" (click)="grabarInformacion()">
-            <ion-icon name="download-outline" slot="end"></ion-icon>
-            Grabar</ion-button
-          >
+          <ion-button class="icon-button" fill="clear" (click)="mostrarCamposSeleccionados(boton)">
+            <ion-icon slot="icon-only" [ios]="boton.icon" md="settings-sharp"></ion-icon>
+          </ion-button>
         </ion-col>
-      </ion-row>
-    </div>
+      </ng-container>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        &nbsp;
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%">
+      <!-- Botón de grabar -->
+      <ion-col size="auto">
+        <ion-button color="tertiary" (click)="grabarInformacion()">Grabar</ion-button>
+      </ion-col>
+    </ion-row>
+    
+    
   </ion-grid>
-
-
-  
+ 
 </ion-content>
-
-<ion-footer class="footer" >
-  <ion-toolbar >
-      <app-tabs
-      [tabs]="tabs"></app-tabs>
-  </ion-toolbar>
-</ion-footer>
 
