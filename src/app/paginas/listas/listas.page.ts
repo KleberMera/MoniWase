@@ -17,7 +17,7 @@ export class ListasPage {
   utilisSvc = inject(UtilsService);
   alertCtrl = inject(AlertController)
 
-  tabs = [
+  /*tabs = [
     { icon: 'list-sharp', name: 'Lista', routerLink: '/listas' },
     { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
     { icon: 'analytics-outline', name: 'Grafics', routerLink: '/graficos' },
@@ -26,7 +26,7 @@ export class ListasPage {
       name: 'Salir',
       clickHandler: () => this.confirmarSalir(),
     },
-  ];
+  ];*/
 
   user: User2 | null = null;
   userData: any | null = null;
@@ -59,38 +59,34 @@ export class ListasPage {
   }
 
   processUserData(userData: any) {
-    const categories: { [key: string]: { fecha: Date[], valor: number[] } } = {};
-
+    const userCategories: { [uid: string]: { [category: string]: { fecha: Date[], valor: number[] } } } = {};
+  
     for (const key in userData) {
       if (Object.prototype.hasOwnProperty.call(userData, key) && key !== 'uid' && key !== 'email' && key !== 'name') {
         const category = userData[key];
         const categoryName = key;
-
-        if (!categories[categoryName]) {
-          categories[categoryName] = {
+  
+        if (!userCategories[this.user!.uid]) {
+          userCategories[this.user!.uid] = {};
+        }
+  
+        if (!userCategories[this.user!.uid][categoryName]) {
+          userCategories[this.user!.uid][categoryName] = {
             fecha: [new Date(category.fecha.seconds * 1000)],
             valor: [category.valor]
           };
         } else {
-          categories[categoryName].fecha.push(new Date(category.fecha.seconds * 1000));
-          categories[categoryName].valor.push(category.valor);
+          userCategories[this.user!.uid][categoryName].fecha.push(new Date(category.fecha.seconds * 1000));
+          userCategories[this.user!.uid][categoryName].valor.push(category.valor);
         }
       }
     }
-
-    for (const categoryName in categories) {
-      if (Object.prototype.hasOwnProperty.call(categories, categoryName)) {
-        console.log('Categoria:', categoryName);
-        for (let i = 0; i < categories[categoryName].fecha.length; i++) {
-          console.log('Fecha:', categories[categoryName].fecha[i]);
-          console.log('Valor:', categories[categoryName].valor[i]);
-          console.log('-------------------------');
-        }
-      }
-    }
+  
+    console.log(userCategories);
   }
+  
 
-  async confirmarSalir() {
+  /*async confirmarSalir() {
     const alert = await this.alertCtrl.create({
       header: 'Confirmación',
       message: '¿Estás seguro de que deseas salir?',
@@ -117,6 +113,6 @@ export class ListasPage {
 
   signOut() {
     this.firebaseSvc.signOut();
-  }
+  }*/
 
 }
