@@ -18,9 +18,6 @@ export class GastosPage {
     { icon: 'analytics-outline', name: 'Grafics',  routerLink: '/graficos' },
     { icon: 'exit-outline', name: 'Salir', clickHandler: () => this.confirmarSalir() },
   ];
-  
-
-
 
   mostrarCampos: boolean = false;
   nombreGasto: string = '';
@@ -123,8 +120,8 @@ export class GastosPage {
     const toast = await this.toastController.create({
       message: 'Gastos grabados exitosamente',
       duration: 2000,
-      position: 'top',
-      color: "medium"
+      position: "top",
+      color: "primary"
     });
     toast.present();
   }
@@ -132,8 +129,8 @@ export class GastosPage {
     const toast = await this.toastController.create({
       message: 'Por favor complete todos los campos',
       duration: 2000,
-      position: 'top',
-      color: "medium"
+      position: "top",
+      color: "primary"
     });
     toast.present();
   }

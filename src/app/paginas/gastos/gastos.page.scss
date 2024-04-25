@@ -1,15 +1,10 @@
-ion-content {
-  --background: var(--ion-color-custom-color); /* Cambia el color de fondo */
-}
+
 
 ion-card {
   margin: auto; /* Centra el card horizontalmente */
   max-width: 500px; /* Limita el ancho del card */
 }
 
-ion-item {
-  --background: transparent; /* Establece el fondo del item como transparente */
-}
 
 .bold-text {
   font-weight: bold; /* Hace que el texto sea negrita */
