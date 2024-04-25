@@ -15,7 +15,18 @@
         Esta App te ayudara a llevar un control de tus gastos
       </ion-card-content>
     </ion-card>
-
-    <app-tabs [tabs]="tabs"></app-tabs>
   </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="name" color="tertiary">{{ sumaTotal }}$</ion-card-subtitle>
+      <ion-card-title class="gastos">Sus Gastos son:</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+ 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <app-tabs [tabs]="tabs"></app-tabs>
+  </ion-toolbar>
+</ion-footer>

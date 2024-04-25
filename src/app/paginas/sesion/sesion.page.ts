@@ -8,7 +8,7 @@ import { UtilsService } from 'src/app/servicios/utils.service';
   templateUrl: './sesion.page.html',
   styleUrls: ['./sesion.page.scss'],
 })
-export class SesionPage {
+export class SesionPage implements OnInit  {
   tabs = [
     { icon: 'list-sharp', name: 'Lista',  routerLink: '/listas' },
     { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
@@ -16,7 +16,16 @@ export class SesionPage {
     { icon: 'analytics-outline', name: 'Grafics',  routerLink: '/graficos' },
     { icon: 'exit-outline', name: 'Salir', clickHandler: () => this.confirmarSalir() },
   ];
-  
+  constructor(private utilsSvc: UtilsService) {}
+
+  ngOnInit() {
+    this.sumaTotal = this.utilsSvc.sumarValoresDeUsuario();
+  }
+
+
+
+  sumaTotal: number; // Declara la propiedad sumaTotal aquí
+
 
   nombreUsuario: string;
 
@@ -30,6 +39,11 @@ export class SesionPage {
   signOut() {
     this.firebaseSvc.signOut();
   }
+
+
+
+
+  
 
   ionViewWillEnter() {
     // Obtener el nombre de usuario del localStorage

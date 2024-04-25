@@ -43,4 +43,27 @@ export class UtilsService {
   getFromLocalStorage(key: string) {
     return JSON.parse(localStorage.getItem(key) || '{}');
   }
+
+  // Suma todos los valores numéricos dentro de un objeto
+  sumarValores(obj: any): number {
+    let suma = 0;
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        suma += this.sumarValores(obj[key]); // Si es un objeto, llamamos a la función recursivamente
+      } else if (key === 'valor' && typeof obj[key] === 'number') {
+        suma += obj[key]; // Si es un número bajo la clave 'valor', lo sumamos
+      }
+    }
+    return suma;
+  }
+
+  sumarValoresDeUsuario() {
+    const userData = this.getFromLocalStorage('user');
+    if (userData) {
+      return this.sumarValores(userData);
+    } else {
+      return 0; // Retorna 0 si no se encuentra userData o no hay valores numéricos
+    }
+  }
+  
 }

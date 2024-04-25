@@ -10,6 +10,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-select placeholder="Seleccionar categoría" (ionChange)="selectCategory($event)">
+              <ion-select-option value="todos">Todos</ion-select-option>
               <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.nombre">
                 {{ categoria.nombre }}
               </ion-select-option>
@@ -31,3 +32,11 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <app-tabs [tabs]="tabs"></app-tabs>
+  </ion-toolbar>
+</ion-footer>
+
+

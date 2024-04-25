@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FirebaseService } from 'src/app/servicios/firebase.service';
+import { UtilsService } from 'src/app/servicios/utils.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-graficos',
@@ -9,6 +12,20 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./graficos.page.scss'],
 })
 export class GraficosPage implements OnInit {
+
+  tabs = [
+    { icon: 'list-sharp', name: 'Lista',  routerLink: '/listas' },
+    { icon: 'card-outline', name: 'Gastos', routerLink: '/gastos' },
+    { icon: 'home-outline', name: 'Home', routerLink: '/sesion' },
+    { icon: 'analytics-outline', name: 'Grafics',  routerLink: '/graficos' },
+    { icon: 'exit-outline', name: 'Salir', clickHandler: () => this.confirmarSalir() },
+  ];
+
+  firebaseSvc = inject(FirebaseService);
+  utilisSvc = inject(UtilsService);
+  alertCtrl = inject(AlertController)
+
+
   categorias: any[] = [];
   fechas: any[] = [];
   chartCategorias: Chart;
@@ -149,7 +166,11 @@ export class GraficosPage implements OnInit {
 
   selectCategory(event: any) {
     const selectedCategory = event.detail.value;
-    if (selectedCategory) {
+    if (selectedCategory === 'todos') {
+      // Si se selecciona "Todos", generamos los gráficos con todas las categorías
+      this.generateCharts();
+    } else {
+      // Si se selecciona una categoría específica, generamos el gráfico solo para esa categoría
       const selectedCategoryData = this.categorias.find(categoria => categoria.nombre === selectedCategory);
       if (selectedCategoryData) {
         const ctxCategorias = document.getElementById('chartCategorias') as HTMLCanvasElement;
@@ -200,5 +221,34 @@ export class GraficosPage implements OnInit {
       colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
     }
     return colors;
+  }
+
+  async confirmarSalir() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmación',
+      message: '¿Estás seguro de que deseas salir?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'tertiary',
+          handler: () => {
+            console.log('Cancelar');
+          },
+        },
+        {
+          text: 'Salir',
+          handler: () => {
+            this.signOut(); // Llama al método signOut si el usuario confirma salir
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  signOut() {
+    this.firebaseSvc.signOut();
   }
 }
