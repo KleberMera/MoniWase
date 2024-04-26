@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabs',
@@ -13,5 +14,13 @@ export class TabsComponent {
     clickHandler?: () => void;
   }[] = [];
 
-  constructor() {}
+  activePage: string;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.activePage = event.url;
+      }
+    });
+  }
 }
