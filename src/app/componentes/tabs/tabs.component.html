@@ -1,7 +1,12 @@
-<ion-tab-bar slot="bottom" color="tertiary">
-  <ion-tab-button *ngFor="let tab of tabs" [routerLink]="tab.routerLink" (click)="tab.clickHandler && tab.clickHandler()"
-    [ngClass]="{ 'selected': tab.routerLink === activePage }">
-    <ion-icon [name]="tab.icon"></ion-icon>
-    <span class="ion-text-uppercase ion-text-medium ion-color-primary">{{ tab.name }}</span>
-  </ion-tab-button>
-</ion-tab-bar>
+<ion-tabs>
+  <ion-tab-bar slot="bottom" color="tertiary">
+    <ion-tab-button
+      *ngFor="let tab of tabs"
+      [routerLink]="tab.routerLink"
+      (click)="tab.clickHandler && tab.clickHandler()"
+    >
+      <ion-icon [name]="tab.icon"></ion-icon>
+      <span class="ion-text-uppercase ion-text-medium ion-color-primary">{{ tab.name }}</span>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
